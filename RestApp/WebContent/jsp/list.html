@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    
+    <script>
+	URLPREFIX = 'http://ac00100.sytes.net:8080';
+    
+    $.ajax({ 
+	    type: 'GET', 
+	    url: URLPREFIX + '/RestApp/api/lists', 
+	    data: { id: 'HOTEL' }, 
+	    dataType: 'json',
+	    success: function (data) { 
+	        $.each(data, function(i, obj) {
+	        	$('#tbl1 tr:last').after('<tr><td>'+obj.HotelID+'</td><td>'+obj.HotelName+'</td><td>'+obj.Address+
+	    	        	'</td><td>'+obj.City+'</td><td>'+obj.Country+'</td><td>'+obj.PhoneNo+
+	    	        	'</td><td>'+obj.Fax+'</td><td>'+obj.Email+'</td><td>'+obj.Rating+'</td></tr>');
+	        	 //$('#div1').append("id:" + obj.id + ", task:" + obj.taskname + ", status:" + obj.status + "<br />");
+        	});
+	    }
+	});
+
+    $.ajax({ 
+	    type: 'GET', 
+	    url: URLPREFIX + '/RestApp/api/lists', 
+	    data: { id: 'HOTELFACILITY' }, 
+	    dataType: 'json',
+	    success: function (data) { 
+	        $.each(data, function(i, obj) {
+	        	$('#tbl2 tr:last').after('<tr><td>'+obj.FacilityID+'</td><td>'+obj.HotelID+'</td><td>'+obj.FacilityName+
+	    	        	'</td><td>'+obj.FacilityDesc+'</td></tr>');
+	        	 //$('#div1').append("id:" + obj.id + ", task:" + obj.taskname + ", status:" + obj.status + "<br />");
+        	});
+	    }
+	});
+
+    $.ajax({ 
+	    type: 'GET', 
+	    url: URLPREFIX + '/RestApp/api/lists', 
+	    data: { id: 'ROOMTYPE' }, 
+	    dataType: 'json',
+	    success: function (data) { 
+	        $.each(data, function(i, obj) {
+	        	$('#tbl3 tr:last').after('<tr>'+
+	    	        	'<td>'+obj.TypeID+'</td>'+
+	    	        	'<td>'+obj.RoomClass+'</td>'+
+	    	        	'<td>'+obj.BedNo+'</td>'+
+	    	        	'<td>'+obj.Price+'</td>'+
+	    	        	'<td>'+obj.AllowSmoking+'</td>'+
+	    	        	'<td>'+obj.roomview+'</td>'+
+	    	        	'</tr>');
+	        	 //$('#div1').append("id:" + obj.id + ", task:" + obj.taskname + ", status:" + obj.status + "<br />");
+        	});
+	    }
+	});
+
+    $.ajax({ 
+	    type: 'GET', 
+	    url: URLPREFIX + '/RestApp/api/lists', 
+	    data: { id: 'ROOM' }, 
+	    dataType: 'json',
+	    success: function (data) { 
+	        $.each(data, function(i, obj) {
+	        	$('#tbl4 tr:last').after('<tr>'+
+	    	        	'<td>'+obj.RoomID+'</td>'+
+	    	        	'<td>'+obj.Floor+'</td>'+
+	    	        	'<td>'+obj.TypeID+'</td>'+
+	    	        	'<td>'+obj.SpecialNotes+'</td>'+
+	    	        	'</tr>');
+	        	 //$('#div1').append("id:" + obj.id + ", task:" + obj.taskname + ", status:" + obj.status + "<br />");
+        	});
+	    }
+	});	
+
+    $.ajax({ 
+	    type: 'GET', 
+	    url: URLPREFIX + '/RestApp/api/lists', 
+	    data: { id: 'ROOMPACKAGE' }, 
+	    dataType: 'json',
+	    success: function (data) { 
+	        $.each(data, function(i, obj) {
+	        	$('#tbl5 tr:last').after('<tr>'+
+	    	        	'<td>'+obj.PackageID+'</td>'+
+	    	        	'<td>'+obj.PackageName+'</td>'+
+	    	        	'<td>'+obj.PackageDesc+'</td>'+
+	    	        	'<td>'+obj.PackagePrice+'</td>'+
+	    	        	'</tr>');
+	        	 //$('#div1').append("id:" + obj.id + ", task:" + obj.taskname + ", status:" + obj.status + "<br />");
+        	});
+	    }
+	});	
+
+    $.ajax({ 
+	    type: 'GET', 
+	    url: URLPREFIX + '/RestApp/api/lists', 
+	    data: { id: 'CUSTOMER' }, 
+	    dataType: 'json',
+	    success: function (data) { 
+	        $.each(data, function(i, obj) {
+	        	$('#tbl6 tr:last').after('<tr>'+
+	    	        	'<td>'+obj.CustomerID+'&nbsp;(<a href="customer.html?id='+obj.CustomerID+'" target=_blank>Details</a>)'+'</td>'+
+	    	        	'<td>'+obj.FirstName+'</td>'+
+	    	        	'<td>'+obj.LastName+'</td>'+
+	    	        	'<td>'+obj.DOB+'</td>'+
+	    	        	'<td>'+obj.GENDER+'</td>'+
+	    	        	'<td>'+obj.MobileNo+'</td>'+
+	    	        	'<td>'+obj.Email+'</td>'+
+	    	        	'<td>'+obj.isMembership+'</td>'+
+	    	        	'</tr>');
+	        	 //$('#div1').append("id:" + obj.id + ", task:" + obj.taskname + ", status:" + obj.status + "<br />");
+        	});
+	    }
+	});		
+
+    $.ajax({ 
+	    type: 'GET', 
+	    url: URLPREFIX + '/RestApp/api/lists', 
+	    data: { id: 'BOOKING' }, 
+	    dataType: 'json',
+	    success: function (data) { 
+	        $.each(data, function(i, obj) {
+	        	$('#tbl7 tr:last').after('<tr>'+
+	    	        	'<td>'+obj.BookingID+'</td>'+
+	    	        	'<td>'+obj.CustomerID+'</td>'+
+	    	        	'<td>'+obj.HotelID+'</td>'+
+	    	        	'<td>'+obj.RoomID+'</td>'+
+	    	        	'<td>'+obj.CheckInDate+'</td>'+
+	    	        	'<td>'+obj.CheckOutDate+'</td>'+
+	    	        	'<td>'+obj.SpecialNotes+'</td>'+
+	    	        	'<td>'+obj.packageid+'</td>'+
+	    	        	'</tr>');
+	        	 //$('#div1').append("id:" + obj.id + ", task:" + obj.taskname + ", status:" + obj.status + "<br />");
+        	});
+	    }
+	});	
+
+    $.ajax({ 
+	    type: 'GET', 
+	    url: URLPREFIX + '/RestApp/api/lists', 
+	    data: { id: 'PAYMENTFORBOOKING' }, 
+	    dataType: 'json',
+	    success: function (data) { 
+	        $.each(data, function(i, obj) {
+	        	$('#tbl8 tr:last').after('<tr>'+
+	    	        	'<td>'+obj.PaymentID+'</td>'+
+	    	        	'<td>'+obj.BookingID+'</td>'+
+	    	        	'</tr>');
+	        	 //$('#div1').append("id:" + obj.id + ", task:" + obj.taskname + ", status:" + obj.status + "<br />");
+        	});
+	    }
+	});	
+
+    $.ajax({ 
+	    type: 'GET', 
+	    url: URLPREFIX + '/RestApp/api/lists', 
+	    data: { id: 'PAYMENT' }, 
+	    dataType: 'json',
+	    success: function (data) { 
+	        $.each(data, function(i, obj) {
+	        	$('#tbl9 tr:last').after('<tr>'+
+	    	        	'<td>'+obj.PaymentID+'</td>'+
+	    	        	'<td>'+obj.PaymentMethod+'</td>'+
+	    	        	'<td>'+obj.TotalAmount+'</td>'+
+	    	        	'</tr>');
+	        	 //$('#div1').append("id:" + obj.id + ", task:" + obj.taskname + ", status:" + obj.status + "<br />");
+        	});
+	    }
+	});		
+    
+	
+    </script>
+<style>
+.header {color:blue; font-size:14px;}
+td {font-size:12px;}
+table {
+    border-collapse: collapse;
+}
+table, th, td {
+   border: 1px solid black;
+   	padding: 5px;
+} 
+th, tr {text-align:left;}
+</style>
+</head>
+
+<body style="font-family:arial;">
+<div class="header"><i><b>HOTEL TABLE</b></i></div>
+<table id="tbl1" >
+<thead>
+<tr><th>HotelID</th><th>HotelName</th><th>Address</th><th>City</th><th>Country</th><th>PhoneNo</th><th>Fax</th><th>Email</th><th>Rating</th></tr>
+</thead>
+<tbody>
+<tr></tr>
+</tbody>
+</table>
+
+<br>
+<div class="header"><i><b>HOTEL FACILITY TABLE</b></i></div>
+<table id="tbl2" >
+<thead>
+<tr><th>FacilityID</th><th>HotelID</th><th>FacilityName</th><th>FacilityDesc</th></tr>
+</thead>
+<tbody>
+<tr></tr>
+</tbody>
+</table>
+
+<br>
+<div class="header"><i><b>ROOM TYPE TABLE</b></i></div>
+<table id="tbl3" >
+<thead>
+<tr><th>TypeID</th><th>RoomClass</th><th>BedNo</th><th>Price</th><th>AllowSmoking</th><th>roomview</th></tr>
+</thead>
+<tbody>
+<tr></tr>
+</tbody>
+</table>
+
+<br>
+<div class="header"><i><b>ROOM TABLE</b></i></div>
+<table id="tbl4" >
+<thead>
+<tr><th>RoomID</th><th>Floor</th><th>TypeID</th><th>SpecialNotes</th></tr>
+</thead>
+<tbody>
+<tr></tr>
+</tbody>
+</table>
+
+<br>
+<div class="header"><i><b>ROOM PACKAGE TABLE</b></i></div>
+<table id="tbl5" >
+<thead>
+<tr><th>PackageID</th><th>PackageName</th><th>PackageDesc</th><th>PackagePrice</th></tr>
+</thead>
+<tbody>
+<tr></tr>
+</tbody>
+</table>
+
+<br>
+<div class="header"><i><b>CUSTOMER TABLE</b></i></div>
+<table id="tbl6" >
+<thead>
+<tr><th>CustomerID</th><th>FirstName</th><th>LastName</th><th>DOB</th><th>GENDER</th><th>MobileNo</th><th>Email</th><th>isMembership</th></tr>
+</thead>
+<tbody>
+<tr></tr>
+</tbody>
+</table>
+
+<br>
+<div class="header"><i><b>BOOKING TABLE</b></i></div>
+<table id="tbl7" >
+<thead>
+<tr><th>BookingID</th><th>CustomerID</th><th>HotelID</th><th>RoomID</th><th>CheckInDate</th><th>CheckOutDate</th><th>SpecialNotes</th><th>packageid</th></tr>
+</thead>
+<tbody>
+<tr></tr>
+</tbody>
+</table>
+
+<br>
+<div class="header"><i><b>PAYMENTFORBOOKING TABLE</b></i></div>
+<table id="tbl8" >
+<thead>
+<tr><th>PaymentID</th><th>BookingID</th></tr>
+</thead>
+<tbody>
+<tr></tr>
+</tbody>
+</table>
+
+
+<br>
+<div class="header"><i><b>PAYMENT TABLE</b></i></div>
+<table id="tbl9" >
+<thead>
+<tr><th>PaymentID</th><th>PaymentMethod</th><th>TotalAmount</th></tr>
+</thead>
+<tbody>
+<tr></tr>
+</tbody>
+</table>
+
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Shop list</title>
+  
+  <script type='text/javascript' src='jquery/jquery-1.11.1.min.js'></script>  
+  <script type="text/javascript" src="jquery.mobile/jquery.mobile-1.4.5.js"></script>
+  <link rel="stylesheet" type="text/css" href="jquery.mobile/jquery.mobile-1.4.5.css">
+  <script type="text/javascript" src="js/shopList.js"></script>
+  <!-- <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+  <script type="text/javascript" src="jquery/jquery.ui.map.js"></script>
+  <script type="text/javascript" src="jquery/jquery.ui.map.services.js"></script>
+  <script type="text/javascript" src="jquery/jquery.ui.map.extensions.js"></script>-->
+
+</head>
+<body>
+  <div data-role="page" id="home" data-theme="b">
+    <div data-theme="b" data-role="header">
+         <h3>
+            Shop List
+        </h3>
+
+    </div>
+    <div data-role="content" data-theme="b">
+            <ul data-role="listview" id="Shop-list" data-theme="b"></ul>
+    </div>
+  <div data-role="footer" data-position="fixed" data-theme="b">
+    <h3>COMP5326</h3>
+    <a href="index.html" data-ajax="false"  data-transition="slidefade" class="ui-btn ui-btn-left  ui-btn-icon-left ui-icon-home ui-btn-icon-notext ui-corner-all" style="margin-top:0;"></a>
+  </div>
+</div>
+
+<div data-role="page" id="headline" data-theme="b">
+    <div data-theme="b" data-role="header"> <a href="#home" class="ui-btn-left" data-transition="slide" data-direction="reverse">Back</a> 
+         <h3>
+            Shop List
+        </h3>
+    </div>
+    <div data-role="content" data-theme="b">
+        <div style="height:250px" id="map-canvas" data-theme="b"></div>
+        <ul data-role="listview" id="Shop-data" data-theme="b" style="white-space:normal">
+        </ul>
+
+    </div>
+</div>
+ 
+</body>
+
+
+</html>
+

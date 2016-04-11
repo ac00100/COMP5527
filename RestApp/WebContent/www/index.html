@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Mobile Shopping Service</title>
+    <script type='text/javascript' src='jquery/jquery-1.11.1.min.js'></script>  
+  <script type="text/javascript" src="jquery.mobile/jquery.mobile-1.4.5.js"></script>
+  <link rel="stylesheet" type="text/css" href="jquery.mobile/jquery.mobile-1.4.5.css">
+      <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript" src="barcodescanner.js"></script>
+  <script type="text/javascript" src="js/shopList.js"></script>
+  <script type="text/javascript" src="js/startup.js"></script>
+  <!-- <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+  <script type="text/javascript" src="jquery/jquery.ui.map.js"></script>
+  <script type="text/javascript" src="jquery/jquery.ui.map.services.js"></script>
+  <script type="text/javascript" src="jquery/jquery.ui.map.extensions.js"></script> -->
+   <script>
+   $(document).ready(function(){
+   	 $( "#scan" ).click(function(){
+   		 cordova.plugins.barcodeScanner.scan(
+		      function (result) {
+		          //alert("We got a barcode\n" +
+		          //      "Result: " + result.text + "\n" +
+		          //      "Format: " + result.format + "\n" +
+		          //      "Cancelled: " + result.cancelled);
+		          //alert(result.text);
+		           $(location).attr('href',result.text);
+		      }, 
+		      function (error) {
+		          alert("Scanning failed: " + error);
+		      }
+          );
+       
+    });
+   	 
+   	 var hostUrl = "http://192.168.11.3/";
+
+   	 $( "#synctolocal" ).click(function(){
+   			$.getJSON( hostUrl + "RestApp/api/lists", function( data ) {
+   			  console.log(data);
+   			  str = JSON.stringify(data);
+   			  console.log(str);
+   			  localStorage.setItem("productobj",str);
+   			  alert("Sync Success!");
+   			});
+       		
+      });   
+   	 
+   	  $( "#synctoserver" ).click(function(){
+   		$.ajax({ 
+   		    type: 'GET', 
+   		    url: hostUrl + '/RestApp/api/update', 
+   		    data: { taskname :  localStorage.getItem("productobj") }, 
+   		    dataType: 'json',
+   		    success: function (data) { 
+   		    	
+   		    }
+   		});
+   	  });
+   });
+   
+  
+   </script>
+    </head>
+<body>
+
+<div id="home" data-role="page" data-theme="b">
+  <div role="main" class="ui-content" data-theme="b">
+    <h1 style="text-align:center;">Inventory List</h1>
+    <div class="ui-grid-a" style="height:95px">
+	  <div class="ui-block-a" style="height:100%; text-align:center;">    	
+        <a href="productList.html" data-ajax="false"  data-transition="fade" >
+        <img  src="img/graph.png" style="width:70px; margin-left:10px; text-align:center;">
+        </a>
+        <h5 style="text-align:center; margin-top:-5px;">Products</h5>
+      </div>
+      <div class="ui-block-b" style="height:100%; text-align:center;">
+        <a href="#" data-ajax="false"  data-transition="fade" id="scan">
+        <img src="img/search.png" style="width:70px; margin-left:10px; text-align:center;">
+        </a>
+        <h5 style="text-align:center; margin-top:-5px;" id="scan">Scan QR Code</h5>
+      </div>
+    </div>
+    <div class="ui-grid-a" style="height:95px">
+      <div class="ui-block-a" style="height:100%; text-align:center;">
+      	<a href="#" data-ajax="false"  data-transition="fade" id="synctolocal">
+        <img src="img/location.png" style="width:60px; margin:5px 15px 5px 18px">
+        </a>
+        <h5 style="text-align:center; margin-top:-5px;">Sync to local</h5>
+      </div>
+      <div class="ui-block-b" style="height:100%; text-align:center;">
+      	<a href="#" data-ajax="false"  data-transition="fade" id="synctoserver">
+        <img src="img/speaker.png" style="width:60px; margin:5px 15px 5px 18px">
+        </a>
+        <h5 style="text-align:center; margin-top:-5px;">Sync to server</h5>
+      </div>
+    </div>
+ 
+  </div>
+  <div data-role="footer" data-position="fixed" data-theme="b">
+    <h3>COMP5527</h3>
+    <!--<a class="ui-btn ui-btn-left  ui-btn-icon-left ui-icon-gear ui-btn-icon-notext ui-corner-all" style="margin-top:0;"></a>
+    <a class="ui-btn ui-btn-right ui-btn-icon-left ui-icon-delete ui-btn-icon-notext ui-corner-all" style="margin-top:0;"></a>-->
+  </div>
+</div>
+
+</body>
+
+
+</html>
+

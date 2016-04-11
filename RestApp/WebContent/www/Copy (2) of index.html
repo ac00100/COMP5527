@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Shop list</title>
+
+  <script type='text/javascript' src='jquery/jquery-1.11.1.min.js'></script>  
+  <script type="text/javascript" src="jquery.mobile/jquery.mobile-1.4.5.js"></script>
+  <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript" src="barcodescanner.js"></script>
+  <link rel="stylesheet" type="text/css" href="jquery.mobile/jquery.mobile-1.4.5.css">
+  
+      <!--<script type='text/javascript' src="http://code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.min.js"></script>    
+      <link rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/1.4.0-beta.1/jquery.mobile-1.4.0-beta.1.min.css">   
+      <link rel="stylesheet" type="text/css" href="http://example.gajotres.net/iscrollview/jquery.mobile.iscrollview.css">
+      <link rel="stylesheet" type="text/css" href="http://example.gajotres.net/iscrollview/jquery.mobile.iscrollview-pull.css">    
+      <script type='text/javascript' src="http://example.gajotres.net/iscrollview/iscroll.js"></script> 
+      <script type='text/javascript' src="http://example.gajotres.net/iscrollview/jquery.mobile.iscrollview.js"></script> 
+
+  <style type='text/css'>
+    .ui-content {
+    padding: 0 !important;
+}
+ 
+.ui-listview {
+    margin: 0 !important;
+}
+ 
+.example-wrapper, .example-wrapper div.iscroll-scroller {
+    width: 100% !important;
+}
+  </style>-->
+  
+
+
+</head>
+<body>
+  <div data-role="page" id="home">
+    <div data-theme="a" data-role="header">
+         <h3>
+            Shop List
+        </h3>
+
+    </div>
+    <div data-role="content">
+        <!--<div class="example-wrapper" data-iscroll>-->
+            <ul data-role="listview" id="Shop-list" data-theme="a"></ul>
+        <!--</div>-->
+    </div>
+    <div data-theme="a">
+          <a href="index.html" data-role="button" id="scan" data-theme="a">Scan QR Code</a>
+    </div>
+    <div data-theme="a" data-role="footer">
+         <h1>Copyright 2013</h1>
+    </div>
+
+</div>
+<div data-role="page" id="headline">
+    <div data-theme="a" data-role="header"> <a href="#home" class="ui-btn-left" data-transition="slide" data-direction="reverse">Back</a> 
+         <h3>
+            Shop Info
+        </h3>
+    </div>
+    <div data-role="content">
+        <ul data-role="listview" id="Shop-data" data-theme="a"></ul>
+    </div>
+</div>
+
+
+
+<script type='text/javascript'>//<![CDATA[ 
+
+$(document).on('pageinit', '#home', function () {
+    $.ajax({
+        url: 'http://demo.copak.info/comp5326/test.php',
+        dataType: "jsonp",
+        async: true,
+        type: 'POST',
+        success: function (result) {        
+            ajax.parseJSONP(result);
+        },
+        error: function (x,e) {
+            if(x.status==0){
+                alert('You are offline!!\n Please Check Your Network.');
+            }else if(x.status==404){
+                alert('Requested URL not found.');
+            }else if(x.status==500){
+                alert('Internel Server Error.');
+            }else if(e=='parsererror'){
+                alert('Error.\nParsing JSON Request failed.');
+            }else if(e=='timeout'){
+                alert('Request Time out.');
+            }else {
+                alert('Unknow Error.\n'+x.responseText);
+            }            
+        }
+    });
+    
+    $( "#scan" ).bind( "click", function(event, ui) {
+       cordova.plugins.barcodeScanner.scan(
+		      function (result) {
+		          alert("We got a barcode\n" +
+		                "Result: " + result.text + "\n" +
+		                "Format: " + result.format + "\n" +
+		                "Cancelled: " + result.cancelled);
+		      }, 
+		      function (error) {
+		          alert("Scanning failed: " + error);
+		      }
+          );
+    });
+});
+
+$(document).on('pagebeforeshow', '#headline', function () {
+    	$('#Shop-data').empty();
+    	var r = ShopInfo.result;
+        for(index = 0; index < r.length; ++index) {        
+        if (r[index]["ID"] == ShopInfo.id) {
+            //$('#Shop-data').append('<li><img src="http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185' + row.poster_path + '"></li>');
+            $('#Shop-data').append('<li>Name: ' + r[index]["Name"] + '</li>');
+            $('#Shop-data').append('<li>Address: ' + r[index]["Address"] + '</li>');
+            $('#Shop-data').append('<li>Lat: ' + r[index]["Lat"] + '</li>');
+            $('#Shop-data').append('<li>Lng: ' + r[index]["Lng"] + '</li>');
+            $('#Shop-data').listview('refresh');
+            }
+        }
+    
+});
+
+$(document).on('vclick', '#Shop-list li a', function () {
+	ShopInfo.id = $(this).attr('data-id');		
+    $.mobile.changePage("#headline", {
+        transition: "slide",
+        changeHash: false
+    });
+});
+
+var ShopInfo= {
+    id: null,
+    result: null
+}
+
+var ajax = {
+    parseJSONP: function (result) {
+    ShopInfo.result = result;
+        for(index = 0; index < result.length; ++index){        	
+			 $("#Shop-list").append('<li><a href="" data-id="' + result[index]["ID"] + '"><h3>' + result[index]["Name"] + '</h3><p>' + result[index]["Address"] + '</p></a></li>');
+			 }
+        $('#Shop-list').listview('refresh');
+    }
+}
+
+
+//]]>  
+
+</script>
+  
+</body>
+
+
+</html>

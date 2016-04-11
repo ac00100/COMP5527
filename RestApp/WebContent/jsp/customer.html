@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    
+    <script>
+	URLPREFIX = 'http://ac00100.sytes.net:8080';
+	$.urlParam = function(name){
+		var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+		return results[1] || 0;
+	};
+	
+    $.ajax({ 
+	    type: 'GET', 
+	    url: URLPREFIX + '/RestApp/api/customer', 
+	    data: { id: $.urlParam('id'), job: 'CUST' }, 
+	    dataType: 'json',
+	    success: function (data) { 
+	        $.each(data, function(i, obj) {
+	        	$('#tbl1 tr:last').after('<tr>'+
+	    	        	'<td>'+obj.CustomerID+'</td>'+
+	    	        	'<td>'+obj.FirstName+'</td>'+
+	    	        	'<td>'+obj.LastName+'</td>'+
+	    	        	'<td>'+obj.DOB+'</td>'+
+	    	        	'<td>'+obj.GENDER+'</td>'+
+	    	        	'<td>'+obj.MobileNo+'</td>'+
+	    	        	'<td>'+obj.Email+'</td>'+
+	    	        	'<td>'+obj.isMembership+'</td>'+
+	    	        	'</tr>');
+	        	 //$('#div1').append("id:" + obj.id + ", task:" + obj.taskname + ", status:" + obj.status + "<br />");
+        	});
+	    }
+	});
+
+    $.ajax({ 
+	    type: 'GET', 
+	    url: URLPREFIX + '/RestApp/api/customer', 
+	    data: { id: $.urlParam('id'), job: 'BOOK' }, 
+	    dataType: 'json',
+	    success: function (data) { 
+	        $.each(data, function(i, obj) {
+	        	$('#tbl2 tr:last').after('<tr>'+
+	    	        	'<td>'+obj.bookingID+'</td>'+
+	    	        	'<td>'+obj.CheckInDate+'</td>'+
+	    	        	'<td>'+obj.CheckOutDate+'</td>'+
+	    	        	'<td>'+obj.SpecialNotes+'</td>'+
+	    	        	'<td>'+obj.HotelName+'</td>'+
+	    	        	'<td>'+obj.Address+'</td>'+
+	    	        	'<td>'+obj.City+'</td>'+
+	    	        	'<td>'+obj.Country+'</td>'+
+	    	        	'<td>'+obj.PhoneNo+'</td>'+
+	    	        	'<td>'+obj.Rating+'</td>'+
+	    	        	'<td>'+obj.Floor+'</td>'+
+	    	        	'<td>'+obj.RoomID+'</td>'+
+	    	        	'<td>'+obj.RoomClass+'</td>'+
+	    	        	'<td>'+obj.RoomView+'</td>'+
+	    	        	'<td>'+obj.AllowSmoking+'</td>'+
+	    	        	'<td>'+obj.Price+'</td>'+
+	    	        	'<td>'+obj.PackageName+'</td>'+
+	    	        	'<td>'+obj.PackagePrice+'</td>'+
+	    	        	'<td>'+obj.PackageDesc+'</td>'+
+	    	        	'</tr>');
+	        	 //$('#div1').append("id:" + obj.id + ", task:" + obj.taskname + ", status:" + obj.status + "<br />");
+        	});
+	    }
+	});    
+
+
+    $.ajax({ 
+	    type: 'GET', 
+	    url: URLPREFIX + '/RestApp/api/customer', 
+	    data: { id: $.urlParam('id'), job: 'PRICE' }, 
+	    dataType: 'json',
+	    success: function (data) { 
+	        $.each(data, function(i, obj) {
+	        	$('#tbl3 tr:last').after('<tr>'+
+	    	        	'<td>'+obj.Paymentid+'</td>'+
+	    	        	'<td>'+obj.TotalNoOfBooking+'</td>'+
+	    	        	'<td>'+obj.TotalPrice+'</td>'+
+	    	        	'<td>'+obj.TotalPriceWithPackage+'</td>'+
+	    	        	'<td>'+obj.TotalAmount+'</td>'+
+	    	        	'<td>'+obj.Paymentmethod+'</td>'+
+	    	        	'</tr>');
+	        	 //$('#div1').append("id:" + obj.id + ", task:" + obj.taskname + ", status:" + obj.status + "<br />");
+        	});
+	    }
+	});    
+	
+    </script>
+<style>
+.header {color:blue; font-size:14px;}
+td {font-size:12px;}
+table {
+    border-collapse: collapse;
+}
+table, th, td {
+   border: 1px solid black;
+   	padding: 5px;
+} 
+th, tr {text-align:left;}
+p {color:red; font-size:13px;}
+</style>
+</head>
+
+<body style="font-family:arial;">
+<div class="header"><i><b>Customer Details</b></i></div>
+<table id="tbl1" >
+<thead>
+<tr><th>CustomerID</th><th>FirstName</th><th>LastName</th><th>DOB</th><th>GENDER</th><th>MobileNo</th><th>Email</th><th>isMembership</th></tr>
+</thead>
+<tbody>
+<tr></tr>
+</tbody>
+</table>
+<p>SELECT * FROM customer a where a.CustomerID=?</p>
+<br>
+<div class="header"><i><b>Booking Details</b></i></div>
+<table id="tbl2" >
+<thead>
+<tr><th>bookingID</th><th>CheckInDate</th><th>CheckOutDate</th><th>SpecialNotes</th><th>HotelName</th><th>Address</th><th>City</th><th>Country</th>
+<th>PhoneNo</th><th>Rating</th><th>Floor</th><th>RoomID</th><th>RoomClass</th><th>RoomView</th><th>AllowSmoking</th><th>Price</th>
+<th>PackageName</th><th>PackagePrice</th><th>PackageDesc</th></tr>
+</thead>
+<tbody>
+<tr></tr>
+</tbody>
+</table>
+<p>select b.bookingID
+     , b.CheckInDate
+     , b.CheckOutDate
+     , b.SpecialNotes <br>
+     , h.HotelName
+     , h.Address
+     , h.City
+     , h.Country
+     , h.PhoneNo	<br>
+     , H.Rating
+     , r.Floor
+     , r.RoomID	<br>
+     , rt.RoomClass
+     , rt.RoomView
+     , rt.AllowSmoking
+     , rt.Price	<br>
+     , rp.PackageName
+     , rp.PackagePrice
+     , rp.PackageDesc <br>
+  from Booking b<br>
+  join Customer c on c.CustomerID = b.CustomerID<br>
+  join Hotel h on h.HotelID = b.HotelID<br>
+  join Room r on r.RoomID = b.RoomID<br>
+  join RoomType rt on rt.TypeID = r.TypeID<br>
+  left join RoomPackage rp on rp.PackageID = b.PackageID<br>
+where c.CustomerID = ?;</p>
+
+<br>
+<div class="header"><i><b>Payment Details</b></i></div>
+<table id="tbl3" >
+<thead>
+<tr><th>Paymentid</th><th>TotalNoOfBooking</th><th>TotalPrice</th><th>TotalPriceWithPackage</th><th>TotalAmount</th><th>Paymentmethod</th></tr>
+</thead>
+<tbody>
+<tr></tr>
+</tbody>
+</table>
+<p>
+Select P.Paymentid<br>
+     , count(b.BookingID) as TotalNoOfBooking<br>
+     , sum(rt.Price) as TotalPrice<br>
+     , sum(case when rp.PackagePrice IS NULL then rt.Price else rp.PackagePrice END) as TotalPriceWithPackage<br>
+     , p.TotalAmount<br>
+     , p.Paymentmethod<br>
+  from Booking b<br>
+  join Room r on r.RoomID = b.RoomID<br>
+  join RoomType rt on rt.TypeID = r.TypeID<br>
+  left join RoomPackage rp on rp.PackageID = b.PackageID<br>
+  join PaymentForBooking pb on pb.BookingID = b.BookingID<br>
+  join Payment p on p.PaymentID = pb.PaymentID<br>
+where b.CustomerID = ?<br>
+group by P.Paymentid, P.Paymentmethod, p.TotalAmount;<br>
+
+</p>
+
+</body>
+
+</html>
